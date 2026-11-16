@@ -1,0 +1,27 @@
+[project]
+name = "ml-zoomcamp-mid-project"
+version = "0.1.0"
+description = "This project uses the Kaggle Titanic dataset to predict whether a passenger survived"
+readme = "README.md"
+authors = [
+    { name = "Salah Ashraf Hossam", email = "salahashraf2018@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.163.1",
+    "scikit-learn>=1.9.1",
+    "uvicorn>=0.54.0",
+    "xgboost>=3.4.1",
+]
+
+[project.scripts]
+ml-zoomcamp-mid-project = "ml_zoomcamp_mid_project:main"
+
+[build-system]
+requires = ["uv_build>=0.13.8,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "requests>=2.34.2",
+]
