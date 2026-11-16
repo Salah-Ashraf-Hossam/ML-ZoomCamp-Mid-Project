@@ -58,8 +58,6 @@ XGBoost was chosen because [ it achieved the highest validation AUC score of the
 
 ## Running the Project
 
-## Running the project
-
 ### Prerequisites
 - [Git](https://git-scm.com/)
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
