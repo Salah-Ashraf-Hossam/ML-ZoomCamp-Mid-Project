@@ -9,7 +9,7 @@ This project uses the [Kaggle Titanic dataset](https://www.kaggle.com/c/titanic)
 
 - **Target:** `Survived` (0 = did not survive, 1 = survived)
 - **Features:** passenger class (`Pclass`), sex, age, number of siblings/spouses aboard (`SibSp`), number of parents/children aboard (`Parch`), ticket fare, and port of embarkation
-- **Evaluation metric:** [accuracy / AUC / F1: state the one you used]
+- **Evaluation metric:** [ AUC ]
 
 The training set has 891 labeled passengers and contains missing values, notably in `Age` and `Cabin`, so data cleaning is part of the task.
 
@@ -36,40 +36,62 @@ The final model takes a passenger's recorded details and outputs the probability
 
 ### Model Comparison
 
-| Model | [Metric] |
+| Model | [AUC] |
 |---|---|
-| Logistic Regression | ... |
-| Decision Tree | ... |
-| Random Forest | ... |
-| **XGBoost (selected)** | ... |
+| Logistic Regression | 0.838 |
+| Decision Tree | 0.865 |
+| Random Forest | 0.873 |
+| **XGBoost (selected)** | 0.882 |
 
-XGBoost was chosen because [give your reason, e.g. it achieved the highest validation score of the four models].
+XGBoost was chosen because [ it achieved the highest validation AUC score of the four models].
 
 ## Repository Contents
 
 | File | Description |
 |---|---|
-| `notebook.ipynb` | Data preparation, EDA, feature importance analysis, model training, tuning, and selection |
-| `train.py` | Training script exported from the notebook |
+| `eda_and_model_selection.ipynb` | Data preparation, EDA, feature importance analysis, model training, tuning, and selection |
+| `final_train.py` | Training script exported from the notebook |
 | `predict.py` | Prediction service exported from the notebook |
-| `requirements.txt` / `environment.yml` | Dependency and environment files |
+| `pyproject.toml` / `uv.lock` | Dependency and environment files |
 | `Dockerfile` | Builds the container for the prediction service |
-| `screenshots/` or `demo.mp4` | Screenshot or video of the deployed model |
+|  `demo.mp4` | video of the deployed model |
 
 ## Running the Project
 
+## Running the project
+
+### Prerequisites
+- [Git](https://git-scm.com/)
+- [uv](https://docs.astral.sh/uv/getting-started/installation/)
+- [Docker](https://docs.docker.com/get-docker/) (installed and running)
+
+### 1. Clone the repo
 ```bash
-# Install dependencies
-pip install -r requirements.txt
+git clone https://github.com/Salah-Ashraf-Hossam/ML-ZoomCamp-Mid-Project/tree/main.git
+cd <ML-ZoomCamp-Mid-Project>
+```
 
-# Train the model
-python train.py
+### 2. Install dependencies
+```bash
+uv sync
+```
+This reads `pyproject.toml` and `uv.lock` and creates a `.venv` with the exact versions used.
 
-# Build and run the prediction service
+### 3. Train the model
+```bash
+uv run python final_train.py
+```
+This saves the trained model to `model.bin`.
+
+### 4. Build and run the prediction service
+```bash
 docker build -t titanic-service .
 docker run -p 9696:9696 titanic-service
 ```
 
-## Deployment Demo
-
-![Deployed model demo](screenshots/demo.png)
+### 5. Test it
+```bash
+curl -X POST http://localhost:9696/predict \
+  -H "Content-Type: application/json" \
+  -d '{"Pclass": 3, "Sex": "male", "Age": 22, "Fare": 7.25}'
+```
