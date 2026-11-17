@@ -65,8 +65,7 @@ XGBoost was chosen because [ it achieved the highest validation AUC score of the
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/Salah-Ashraf-Hossam/ML-ZoomCamp-Mid-Project/tree/main.git
-cd <ML-ZoomCamp-Mid-Project>
+git clone https://github.com/Salah-Ashraf-Hossam/ML-ZoomCamp-Mid-Project.git
 ```
 
 ### 2. Install dependencies
